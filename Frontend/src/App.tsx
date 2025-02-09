@@ -11,10 +11,19 @@ const QUESTION_TIMER = 30;
 export const FloatingBioElements = () => {
   const bioIcons = [Leaf, Heart, Brain, Flower2, TestTube2, BeakerIcon, Microscope];
 
+  // Generate random size between 8 and 16
+  const getRandomSize = () => Math.floor(Math.random() * 9) + 8;
+  
+  // Generate random opacity between 0.1 and 0.3
+  const getRandomOpacity = () => (Math.random() * 0.2 + 0.1).toFixed(2);
+
   return (
-    <div className="fixed inset-0 pointer-events-none">
-      {[...Array(10)].map((_, i) => {
-        const RandomIcon = bioIcons[(i % bioIcons.length)];
+    <div className="fixed inset-0 pointer-events-none overflow-hidden">
+      {[...Array(30)].map((_, i) => {
+        const RandomIcon = bioIcons[i % bioIcons.length];
+        const size = getRandomSize();
+        const opacity = getRandomOpacity();
+        
         return (
           <motion.div
             key={i}
@@ -22,22 +31,28 @@ export const FloatingBioElements = () => {
             initial={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
-              scale: 0.5
+              scale: 0.5,
+              rotate: 0
             }}
             animate={{
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
-              scale: [0.5, 0.7, 0.5]
+              scale: [0.5, 0.7, 0.5],
+              rotate: [0, 180, 360]
             }}
             transition={{
-              duration: 10 + Math.random() * 10,
+              duration: 15 + Math.random() * 20,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
+              times: [0, 0.5, 1]
             }}
           >
-            <RandomIcon className="text-green-500/20 w-12 h-12" />
+            <RandomIcon 
+              className={`text-green-500 w-${size} h-${size}`} 
+              style={{ opacity }} 
+            />
           </motion.div>
-        )
+        );
       })}
     </div>
   );
@@ -270,7 +285,7 @@ function App() {
 
   if (quizState.isComplete) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-green-900 to-blue-900  flex items-center justify-center p-4">
         <QuizSummary
           quizState={quizState}
           totalQuestions={questions.length}

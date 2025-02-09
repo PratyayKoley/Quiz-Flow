@@ -49,7 +49,7 @@ export function QuizCard({ question, selectedAnswer, onSelectAnswer, onNextQuest
   ];
 
   return (
-    <div className="">
+    <div className="relative">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -134,57 +134,65 @@ export function QuizCard({ question, selectedAnswer, onSelectAnswer, onNextQuest
 
         {/* Options */}
         <div className="space-y-4">
-          <AnimatePresence>
-            {question.options.map((option, index) => {
-              const isSelected = selectedAnswer === index;
-              const isCorrect = option?.is_correct || false;
-              const showResult = selectedAnswer !== null;
+          <AnimatePresence mode='wait'>
+            <div
+              key={question.id}
+              className="space-y-4 w-full"
+            >
+              {question.options.map((option, index) => {
+                const isSelected = selectedAnswer === index;
+                const isCorrect = option?.is_correct || false;
+                const showResult = selectedAnswer !== null;
 
-              return (
-                <motion.div
-                  key={option.id}
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -50, opacity: 0, pointerEvents: 'none' }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => !showResult && onSelectAnswer(index)}
-                  whileHover={{ scale: !showResult ? 1.02 : 1 }}
-                  whileTap={{ scale: !showResult ? 0.98 : 1 }}
-                  className={`w-full relative p-5 text-left rounded-lg transition-all ${!showResult ? 'cursor-pointer' : 'cursor-default'} ${!showResult
-                    ? 'bg-white/10 hover:bg-white/20 border-2 border-white/20'
-                    : isSelected
-                      ? isCorrect
-                        ? 'bg-green-500/20 border-2 border-green-400'
-                        : 'bg-red-500/20 border-2 border-red-400'
-                      : isCorrect
-                        ? 'bg-green-500/20 border-2 border-green-400'
-                        : 'bg-white/10 border-2 border-white/20'
-                    }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      animate={showResult && (isSelected || isCorrect) ? {
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 10, -10, 0]
-                      } : {}}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center ${!showResult
-                        ? 'bg-white/20'
-                        : isSelected
-                          ? isCorrect
-                            ? 'bg-green-400'
-                            : 'bg-red-400'
-                          : isCorrect
-                            ? 'bg-green-400'
-                            : 'bg-white/20'
-                        }`}
-                    >
-                      {String.fromCharCode(65 + index)}
-                    </motion.div>
-                    {option.description}
-                  </div>
-                </motion.div>
-              );
-            })}
+                return (
+                  <motion.div
+                    key={option.id}
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -50, opacity: 0, pointerEvents: 'none' }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.1
+                    }}
+                    onClick={() => !showResult && onSelectAnswer(index)}
+                    whileHover={{ scale: !showResult ? 1.02 : 1 }}
+                    whileTap={{ scale: !showResult ? 0.98 : 1 }}
+                    className={`w-full relative p-5 text-left rounded-lg transition-all ${!showResult ? 'cursor-pointer' : 'cursor-default'} ${!showResult
+                      ? 'bg-white/10 hover:bg-white/20 border-2 border-white/20'
+                      : isSelected
+                        ? isCorrect
+                          ? 'bg-green-500/20 border-2 border-green-400'
+                          : 'bg-red-500/20 border-2 border-red-400'
+                        : isCorrect
+                          ? 'bg-green-500/20 border-2 border-green-400'
+                          : 'bg-white/10 border-2 border-white/20'
+                      }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        animate={showResult && (isSelected || isCorrect) ? {
+                          scale: [1, 1.2, 1],
+                          rotate: [0, 10, -10, 0]
+                        } : {}}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center ${!showResult
+                          ? 'bg-white/20'
+                          : isSelected
+                            ? isCorrect
+                              ? 'bg-green-400'
+                              : 'bg-red-400'
+                            : isCorrect
+                              ? 'bg-green-400'
+                              : 'bg-white/20'
+                          }`}
+                      >
+                        {String.fromCharCode(65 + index)}
+                      </motion.div>
+                      {option.description}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </AnimatePresence>
         </div>
 
