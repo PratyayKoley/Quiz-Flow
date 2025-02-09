@@ -10,46 +10,55 @@ const QUESTION_TIMER = 30;
 
 export const FloatingBioElements = () => {
   const bioIcons = [Leaf, Heart, Brain, Flower2, TestTube2, BeakerIcon, Microscope];
+  const elementCount = 30;
 
-  // Generate random size between 8 and 16
-  const getRandomSize = () => Math.floor(Math.random() * 9) + 8;
-  
-  // Generate random opacity between 0.1 and 0.3
-  const getRandomOpacity = () => (Math.random() * 0.2 + 0.1).toFixed(2);
+  // Generate random positions once on mount
+  const [positions, setPositions] = useState<{ x: number; y: number }[]>([]);
+
+  useEffect(() => {
+    setPositions(
+      Array.from({ length: elementCount }, () => ({
+        x: Math.random() * window.innerWidth * 0.9, 
+        y: Math.random() * window.innerHeight * 0.9,
+      }))
+    );
+  }, []);
+
+  const getRandomSize = () => Math.floor(Math.random() * 18) + 8; // Sizes 8 to 25 (more variation)
+  const getRandomOpacity = () => (Math.random() * 0.3 + 0.2).toFixed(2); // Opacity 0.2 to 0.5
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {[...Array(30)].map((_, i) => {
+      {positions.map(({ x, y }, i) => {
         const RandomIcon = bioIcons[i % bioIcons.length];
         const size = getRandomSize();
         const opacity = getRandomOpacity();
-        
+
         return (
           <motion.div
             key={i}
             className="absolute"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              scale: 0.5,
-              rotate: 0
-            }}
+            initial={{ x, y, scale: 0.5, rotate: 0 }}
             animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              scale: [0.5, 0.7, 0.5],
-              rotate: [0, 180, 360]
+              x: Math.random() * window.innerWidth * 0.9,
+              y: Math.random() * window.innerHeight * 0.9,
+              scale: [0.5, 0.8, 1, 0.6, 0.9], // Adding more variety in scale over time
+              rotate: [0, 180, 360],
             }}
             transition={{
               duration: 15 + Math.random() * 20,
               repeat: Infinity,
               ease: "linear",
-              times: [0, 0.5, 1]
+              times: [0, 0.25, 0.5, 0.75, 1],
             }}
           >
-            <RandomIcon 
-              className={`text-green-500 w-${size} h-${size}`} 
-              style={{ opacity }} 
+            <RandomIcon
+              className="text-green-500"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                opacity,
+              }}
             />
           </motion.div>
         );
@@ -57,6 +66,7 @@ export const FloatingBioElements = () => {
     </div>
   );
 };
+
 
 function App() {
   const [response, setResponse] = useState<Root>();
