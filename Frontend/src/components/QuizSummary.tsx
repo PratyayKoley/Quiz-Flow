@@ -1,4 +1,4 @@
-import { Trophy, Crown, Star, Medal, Target, Clock, Brain, Leaf } from 'lucide-react';
+import { Trophy, Crown, Star, Medal, Target, Clock, Leaf } from 'lucide-react';
 import type { QuizState } from '../types';
 import { motion } from 'framer-motion';
 import { FloatingBioElements } from '../App';
