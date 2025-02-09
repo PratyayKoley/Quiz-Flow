@@ -14,7 +14,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/api', async (_req: Request, res: Response): Promise<void> => {
     try {
-        const response = await axios.get('https://api.jsonserve.com/Uw5CrX');
+        const response = await axios.get(process.env.API as string);
         console.log(response.data);
         res.json(response.data);  
     } catch (error) {

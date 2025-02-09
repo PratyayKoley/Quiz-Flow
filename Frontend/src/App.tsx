@@ -65,7 +65,7 @@ function App() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_LINK}/api`);
         if (!response) throw new Error('Failed to fetch questions');
         setResponse(response.data);
         setQuestions(response.data.questions || []);
