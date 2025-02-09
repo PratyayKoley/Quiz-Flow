@@ -103,7 +103,7 @@ git clone https://github.com/PratyayKoley/Quiz-Flow.git
    npm run dev
    ```
 3. Access the application at `http://localhost:5173`
-4. The project is deployed at 
+4. The project is deployed at [https://quiz-flow-chi.vercel.app/](https://quiz-flow-chi.vercel.app/)
 
 ## Screenshots
 
