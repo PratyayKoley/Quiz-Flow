@@ -308,7 +308,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 to-blue-900 flex flex-col items-center p-4 py-8">
+    <div className="min-h-screen w-full bg-gradient-to-br from-green-900 to-blue-900 flex flex-col items-center p-4 py-8">
       <div className="w-full max-w-2xl mb-4">
         <div className="flex justify-between items-center text-white">
           <span className="text-lg font-semibold">
