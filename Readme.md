@@ -94,7 +94,7 @@ git clone https://github.com/PratyayKoley/Quiz-Flow.git
 
    ```
    cd Backend
-   nodemon app.ts
+   npm start
    ```
 2. Start the frontend development server:
 
@@ -103,10 +103,12 @@ git clone https://github.com/PratyayKoley/Quiz-Flow.git
    npm run dev
    ```
 3. Access the application at `http://localhost:5173`
+4. The project is deployed at 
 
 ## Screenshots
 
 ### Home Screen
+
 ![HomePage](./assets/Home.png)
 
 ### Quiz Interface
